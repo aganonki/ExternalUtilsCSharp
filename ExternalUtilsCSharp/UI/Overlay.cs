@@ -185,7 +185,8 @@ namespace ExternalUtilsCSharp.UI
                         this.Size = new System.Drawing.Size(info.rcClient.Right - info.rcClient.Left, info.rcClient.Bottom - info.rcClient.Top);
                             this.OnResize();
                     }
-                    WinAPI.SetWindowPos(this.hWnd, this.handle, info.rcWindow.Left, info.rcWindow.Top, width, height, 0);
+                    //WinAPI.SetWindowPos(this.hWnd, this.handle, info.rcWindow.Left, info.rcWindow.Top, width, height, 0);
+                    BringToFront();
                 }
             }
             
