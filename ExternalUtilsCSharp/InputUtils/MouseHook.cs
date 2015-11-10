@@ -38,7 +38,6 @@ namespace ExternalUtilsCSharp.InputUtils
             }
             hMouseHook = WinAPI.SetWindowsHookEx(WH_MOUSE_LL, MouseHookProcedure, WinAPI.GetModuleHandle("user32"), 0);
             Dispatcher.Run();
-            Thread.Sleep(Timeout.Infinite);
         }
         /// <summary> 
         /// Windows NT/2000/XP: Uninstalls a hook procedure that monitors low-level mouse input events. 
