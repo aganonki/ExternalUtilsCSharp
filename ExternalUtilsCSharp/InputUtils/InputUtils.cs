@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ExternalUtilsCSharp.InputUtils
@@ -9,6 +10,7 @@ namespace ExternalUtilsCSharp.InputUtils
     public class InputUtilities{
         public KeyUtils Keys;
         public MouseHook Mouse;
+        private Thread mouseThread;
    
         public InputUtilities()
         {
@@ -19,7 +21,9 @@ namespace ExternalUtilsCSharp.InputUtils
         {
             Keys = new KeyUtils();
             Mouse = new MouseHook();
-            Mouse.InstallHook();
+            mouseThread = new Thread(()=>Mouse.InstallHook());
+            mouseThread.IsBackground = true;
+            mouseThread.Start();
         }
         /// <summary>
         /// If true mouse changed since last update

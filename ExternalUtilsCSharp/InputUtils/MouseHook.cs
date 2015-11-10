@@ -4,8 +4,10 @@ using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Threading;
 using ExternalUtilsCSharp.UI;
 using ExternalUtilsCSharp;
 using ExternalUtilsCSharp.MathObjects;
@@ -35,6 +37,8 @@ namespace ExternalUtilsCSharp.InputUtils
                 Console.WriteLine("HookProc error: " + ex.Message);
             }
             hMouseHook = WinAPI.SetWindowsHookEx(WH_MOUSE_LL, MouseHookProcedure, WinAPI.GetModuleHandle("user32"), 0);
+            Dispatcher.Run();
+            Thread.Sleep(Timeout.Infinite);
         }
         /// <summary> 
         /// Windows NT/2000/XP: Uninstalls a hook procedure that monitors low-level mouse input events. 

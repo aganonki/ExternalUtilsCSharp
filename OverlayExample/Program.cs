@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using ExternalUtilsCSharp;
 using ExternalUtilsCSharp.SharpDXRenderer;
 using ExternalUtilsCSharp.SharpDXRenderer.Controls;
+using ExternalUtilsCSharp.SharpDXRenderer.Controls.Layouts;
 using SharpDX.DirectWrite;
 
 namespace OverlayExample
@@ -20,8 +21,14 @@ namespace OverlayExample
         //Menu-window
         private static SharpDXWindow windowMenu;
             private static SharpDXLabel label;
+            private static SharpDXLabel label1;
+            private static SharpDXLabel label2;
+            private static SharpDXLabel label3;
+            private static SharpDXLabel label4;
         private static SharpDXButton buttonToggle;
         private static SharpDXPanel panelContent;
+        private static SharpDXPanel panelContent1;
+        private static SharpDXPanel panelContent2;
         private static SharpDXCheckBox checkBox;
         static SharpDXTrackbar track;
 
@@ -54,6 +61,7 @@ namespace OverlayExample
 
         }
 
+        private static Layout test;
         private static void InitializeComponents()
         {
             windowMenu = new SharpDXWindow();
@@ -62,15 +70,27 @@ namespace OverlayExample
             windowMenu.Panel.DynamicWidth = true;
             windowMenu.Panel.Width = 200;
             windowMenu.Panel.Height = 200;
+            test = new TableLayout(3);
             InitPanel(ref panelContent);
+            InitPanel(ref panelContent1);
+            InitPanel(ref panelContent2);
             InitLabel(ref label,"EXAMPLE",true,200);
+            InitLabel(ref label1,"EXAMPLE",true,200);
+            InitLabel(ref label2,"EXAMPLE",true,200);
+            InitLabel(ref label3,"EXAMPLE",true,200);
+            InitLabel(ref label4,"EXAMPLE",true,200);
             InitCheckBox(ref checkBox,"Checkbox","lel",true);
             InitTrackBar(ref track,"Trackbar","");
+            panelContent2.AddChildControl(label3);
+            panelContent2.AddChildControl(label4);
+            panelContent2.AddChildControl(label2);
+            test.ApplyLayout(panelContent2);
             panelContent.AddChildControl(label);
             panelContent.InsertSpacer();
             panelContent.AddChildControl(checkBox);
             panelContent.InsertSpacer();
             panelContent.AddChildControl(track);
+            panelContent.AddChildControl(panelContent2);
             windowMenu.Panel.AddChildControl(panelContent);
 
         }                
@@ -78,6 +98,7 @@ namespace OverlayExample
         {
             var overlay = (SharpDXOverlay) sender;
             input.Update();
+            test.ApplyLayout(panelContent2);
             if(input.Keys.KeyWentUp(WinAPI.VirtualKeyShort.F5))
             {             
                 overlay.ChangeHandle(WinAPI.GetForegroundWindow());
